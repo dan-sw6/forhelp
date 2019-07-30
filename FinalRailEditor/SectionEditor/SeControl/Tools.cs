@@ -28,6 +28,12 @@ namespace FinalRailEditor.SectionEditor.SeControl
                     Ellipse ellipse = new Ellipse();
                     ellipse.Width = 10;
                     ellipse.Height = 10;
+                    ContextMenu menu = ellipse.ContextMenu;
+                    if (menu != null)
+                    {
+                        var it = menu.Items;
+
+                    }
                     Canvas.SetLeft(ellipse, j * Step - 5.25);
                     Canvas.SetTop(ellipse, i * Step - 5.25);
                     Canvas.Children.Add(ellipse);
@@ -45,19 +51,8 @@ namespace FinalRailEditor.SectionEditor.SeControl
             {
                 style.TargetType = typeof(Ellipse);
                 style.Setters.Add(new Setter(Shape.FillProperty, Brushes.Black));
-                style.Setters.Add(new Setter(Shape.OpacityProperty, 0.0));
-                MultiTrigger mt = new MultiTrigger();
-                mt.Conditions.Add(new Condition(Shape.IsMouseOverProperty, true));
-                mt.Setters.Add(new Setter(Shape.FillProperty, Brushes.Black));
-                mt.Setters.Add(new Setter(Shape.OpacityProperty, 0.8));
-                style.Triggers.Add(mt);
-                MultiTrigger mt1 = new MultiTrigger();
-                mt1.Conditions.Add(new Condition(Shape.ContextMenuProperty, true));
-                mt1.Setters.Add(new Setter(Shape.FillProperty, Brushes.Black));
-                mt1.Setters.Add(new Setter(Shape.OpacityProperty, 0.8));
-                style.Triggers.Add(mt1);
-
-
+                style.Setters.Add(new Setter(Shape.OpacityProperty, 0.8));
+               
             }
             return style;
         }
