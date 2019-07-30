@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:slf="clr-namespace:FinalRailEditor.SectionEditor.SeControl">
+    <ContextMenu x:Key="CreateSt">
+        <MenuItem Name="rwComm" Header="Создать раздельный пункт" 
+        Command="slf:Commands.CreateStation" 
+                  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu} }, Path=PlacementTarget}"
+                  CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"/>
+    </ContextMenu>
+    <Style x:Key="ElliStyle" TargetType="Ellipse">
+        <Setter Property="Fill" Value="Black"/>
+        <Setter Property="ContextMenu" Value="{StaticResource CreateSt}"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style> 
+</ResourceDictionary>

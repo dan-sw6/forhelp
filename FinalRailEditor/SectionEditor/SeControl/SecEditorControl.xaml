@@ -5,6 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:slf="clr-namespace:FinalRailEditor.SectionEditor.SeControl"
              mc:Ignorable="d" >
+    <UserControl.CommandBindings>
+        <CommandBinding Command="slf:Commands.CreateStation" Executed="Cmd_CreateStation"></CommandBinding>
+    </UserControl.CommandBindings>
     <Canvas x:Name="Canvas"  Margin="0" ClipToBounds="False"  >
             <Canvas.Background >
                 <DrawingBrush Viewport="0,0,20,20" ViewportUnits="Absolute" TileMode="Tile">

@@ -37,16 +37,7 @@ namespace FinalRailEditor.SectionEditor.SeControl
             ellipse = new Ellipse();
             ellipse.Width = 10;
             ellipse.Height = 10;
-            ellipse.Style = Tools.CalculateStyle(ellipse);
-            ContextMenu menu = new ContextMenu();
-            MenuItem menuItem = new MenuItem();
-            menuItem.Header = "Новый раздельный пункт";
-            CommandBinding binding = new CommandBinding();
-            binding.Command = Commands.CreateStation;
-            binding.Executed += Cmd_CreateStation;
-            menuItem.CommandBindings.Add(binding);
-            menu.Items.Add(menuItem);
-            ellipse.ContextMenu = menu;
+            ellipse.Style = (Style)Application.Current.FindResource("ElliStyle");
             Canvas.Children.Add(ellipse);
         }
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
