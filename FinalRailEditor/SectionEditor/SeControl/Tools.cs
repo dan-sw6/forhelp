@@ -17,27 +17,47 @@ namespace FinalRailEditor.SectionEditor.SeControl
 {
     public partial class SecEditorControl : UserControl
     {
-        private void ContolSizeChanged(object sender, SizeChangedEventArgs e)
+        private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             int row = (int)Canvas.ActualHeight / Step;
             int column = (int)Canvas.ActualWidth / Step;
-            for (int i = 1; i < row; i++)
+            list = new List<Thickness>();
+            for (int i = 0; i < column - 1; i++)
             {
-                for (int j = 1; j < column; j++)
+                for (int j = 0; j < row - 1; j++)
                 {
-                    Ellipse ellipse = new Ellipse();
-                    ellipse.Width = 10;
-                    ellipse.Height = 10;
-                    ContextMenu menu = ellipse.ContextMenu;
-                    if (menu != null)
-                    {
-                        var it = menu.Items;
-
-                    }
-                    Canvas.SetLeft(ellipse, j * Step - 5.25);
-                    Canvas.SetTop(ellipse, i * Step - 5.25);
-                    Canvas.Children.Add(ellipse);
+                    Thickness thickness = new Thickness();
+                    thickness.Left = Step / 2 + i * Step;
+                    thickness.Top = Step / 2 + j * Step;
+                    thickness.Right = Step * (i + 1) + Step / 2;
+                    thickness.Bottom = Step * (j + 1) + Step / 2;
+                    list.Add(thickness);
                 }
+            }
+            ellipse = new Ellipse();
+            ellipse.Width = 10;
+            ellipse.Height = 10;
+            ellipse.Style = Tools.CalculateStyle(ellipse);
+            ContextMenu menu = new ContextMenu();
+            MenuItem menuItem = new MenuItem();
+            menuItem.Header = "Новый раздельный пункт";
+            CommandBinding binding = new CommandBinding();
+            binding.Command = Commands.CreateStation;
+            binding.Executed += Cmd_CreateStation;
+            menuItem.CommandBindings.Add(binding);
+            menu.Items.Add(menuItem);
+            ellipse.ContextMenu = menu;
+            Canvas.Children.Add(ellipse);
+        }
+        private void Canvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point pos = e.GetPosition(this);
+            var str = list.Where(n => ((n.Left < pos.X) && (n.Right > pos.X) && (n.Top < pos.Y) && (n.Bottom > pos.Y)));
+            Thickness ness = str.FirstOrDefault();
+            if (str.Count() != 0)
+            {
+                Canvas.SetLeft(ellipse, ness.Left + Step / 4 - 0.25);
+                Canvas.SetTop(ellipse, ness.Top + Step / 4 - 0.25);
             }
         }
     }
