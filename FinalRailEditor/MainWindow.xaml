@@ -3,10 +3,124 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FinalRailEditor"
+        xmlns:slf="clr-namespace:FinalRailEditor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" WindowState="Maximized">
+    <Window.Resources>
+
+        <Style TargetType="{x:Type MenuItem}">
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{ Binding Path = Foo}" Value="true" >
+                    <Setter Property="IsEnabled" Value="True"/>
+                </DataTrigger>
+
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="LinkButton" 
+       TargetType="Button"
+       BasedOn="{StaticResource ResourceKey={x:Type Button}}"  >
+
+            <Setter Property="Width" Value="auto"/>
+            <Setter Property="Height" Value="auto"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter Content="{TemplateBinding Content}" 
+                                  ContentTemplate="{TemplateBinding  ContentTemplate}"
+                                  VerticalAlignment="Center"
+                                  >
+                            <ContentPresenter.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="TextDecorations" Value="Underline" />
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="Blue" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <!--<CommandBinding Command="slf:Commands.Open" Executed="Cmd_Open"   />
+        <CommandBinding Command="slf:Commands.Create" Executed="Cmd_Create"   />-->
+        <CommandBinding Command="slf:Commands.OpenSectionEditor" Executed="Cmd_OpenSectionEditor"/>
+        <CommandBinding Command="slf:Commands.OpenGraphicEditor" Executed="Cmd_OpenGraphicEditor"/>
+    </Window.CommandBindings>
+    <Grid ShowGridLines="True" Background="DimGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="600"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Menu Height="20" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="3" >
+            <MenuItem Header="Файл" IsEnabled="True">
+                <MenuItem Header="Создать" Command="" IsEnabled="True"  ></MenuItem>
+                <MenuItem Header="Окрыть"  Command="" IsEnabled="True"/>
+                <Separator />
+                <MenuItem Header="Выход" IsEnabled="True"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Параметры"   >
+                <MenuItem Header="Открыть"  />
+            </MenuItem>
+            <MenuItem Header="Редактор" >
+                <MenuItem Header="Открыть"  />
+            </MenuItem>
+            <MenuItem Header="Расписание" >
+                <MenuItem Header="Расписание по времени"  />
+                <MenuItem Header="Расписание по поездам"  />
+            </MenuItem>
+            <MenuItem Header="Подходы" >
+                <MenuItem Header="Отрыть" />
+            </MenuItem>
+            <MenuItem Header="Расчет" >
+                <MenuItem Header="Отрыть"/>
+            </MenuItem>
+        </Menu>
+        <Border BorderBrush="Black" BorderThickness="3"  CornerRadius="20"  Grid.Column="1" Grid.Row="2" Background="White" >
+            <Grid Grid.Column="1" Grid.Row="2" Name="Vest"  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource LinkButton}" Grid.Column="0" Grid.Row="1" Command="slf:Commands.OpenSectionEditor">
+                    <TextBlock>Участок железнодорожной линии</TextBlock>
+                </Button>
+                <Button Style="{StaticResource LinkButton}" Grid.Column="1" Grid.Row="1" Command="slf:Commands.OpenGraphicEditor" >
+                    <TextBlock>Железнодорожная станция</TextBlock>
+                </Button>
+                <Button Style="{StaticResource LinkButton}" Grid.Column="2" Grid.Row="1" >
+                    <TextBlock>Моделирование</TextBlock>
+                </Button>
+
+
+            </Grid>
+        </Border>
     </Grid>
 </Window>
+    

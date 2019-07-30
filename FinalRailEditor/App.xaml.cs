@@ -13,5 +13,9 @@ namespace FinalRailEditor
     /// </summary>
     public partial class App : Application
     {
+        private void CommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+
+        }
     }
 }
