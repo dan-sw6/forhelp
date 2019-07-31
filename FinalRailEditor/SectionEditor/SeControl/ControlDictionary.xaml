@@ -11,5 +11,11 @@
         <Setter Property="Fill" Value="Black"/>
         <Setter Property="ContextMenu" Value="{StaticResource CreateSt}"/>
         <Setter Property="Opacity" Value="0.8"/>
-    </Style> 
+    </Style>
+
+    <Style x:Key="IconStyle" TargetType="slf:StationIconElement">
+        <Setter Property="Fill" Value="Red"/>
+        <Setter Property="ContextMenu" Value="{StaticResource CreateSt}"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
 </ResourceDictionary>

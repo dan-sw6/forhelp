@@ -18,7 +18,19 @@ namespace FinalRailEditor.SectionEditor.SeControl
     {
         private void Cmd_CreateStation(object sender, ExecutedRoutedEventArgs e)
         {
-            int f = 1;
+            StationIconElement iconElement = new StationIconElement();
+            EllipseGeometry ellipse = new EllipseGeometry();
+            ellipse.RadiusX = 10;
+            ellipse.RadiusY = 10;
+            Ellipse arriver = (Ellipse)e.OriginalSource;
+            double x = Canvas.GetLeft(arriver);
+            double y = Canvas.GetTop(arriver);
+            ellipse.Center = new Point(x, y);
+            iconElement.Icon = ellipse;
+            iconElement.Style = (Style)Application.Current.FindResource("IconStyle");
+            Canvas.Children.Add(iconElement);
+
+
         }
         private void Cmd_DeleteStation(object sender, ExecutedRoutedEventArgs e)
         {

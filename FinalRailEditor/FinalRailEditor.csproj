@@ -55,10 +55,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SectionEditor\MainCircuit.cs" />
+    <Compile Include="SectionEditor\MainStation.cs" />
     <Compile Include="SectionEditor\SeControl\Commands.cs" />
     <Compile Include="SectionEditor\SeControl\SecEditorControl.xaml.cs">
       <DependentUpon>SecEditorControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SectionEditor\SeControl\StationIconElement.cs" />
     <Compile Include="SectionEditor\SeControl\Tools.cs" />
     <Compile Include="SectionEditor\SectionEditorWindow.xaml.cs">
       <DependentUpon>SectionEditorWindow.xaml</DependentUpon>
