@@ -17,11 +17,21 @@ namespace FinalRailEditor.SectionEditor.SeControl
 {
     public partial class SecEditorControl : UserControl
     {
+        const int Step = 20;
+
+        /// <summary>
+        /// Коллекция с ячейками, где может быть привязвка
+        /// </summary>
+        List<Thickness> YesList = new List<Thickness>();
+        List<Thickness> NoneList = new List<Thickness>();
+        Ellipse ellipse;
+
         private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             int row = (int)Canvas.ActualHeight / Step;
             int column = (int)Canvas.ActualWidth / Step;
-            list = new List<Thickness>();
+    
+
             for (int i = 0; i < column - 1; i++)
             {
                 for (int j = 0; j < row - 1; j++)
@@ -31,7 +41,7 @@ namespace FinalRailEditor.SectionEditor.SeControl
                     thickness.Top = Step / 2 + j * Step;
                     thickness.Right = Step * (i + 1) + Step / 2;
                     thickness.Bottom = Step * (j + 1) + Step / 2;
-                    list.Add(thickness);
+                    YesList.Add(thickness);
                 }
             }
             ellipse = new Ellipse();
@@ -43,7 +53,7 @@ namespace FinalRailEditor.SectionEditor.SeControl
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
             Point pos = e.GetPosition(this);
-            var str = list.Where(n => ((n.Left < pos.X) && (n.Right > pos.X) && (n.Top < pos.Y) && (n.Bottom > pos.Y)));
+            var str = YesList.Where(n => ((n.Left < pos.X) && (n.Right > pos.X) && (n.Top < pos.Y) && (n.Bottom > pos.Y)));
             Thickness ness = str.FirstOrDefault();
             if (str.Count() != 0)
             {

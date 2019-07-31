@@ -7,6 +7,21 @@
                   CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu} }, Path=PlacementTarget}"
                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"/>
     </ContextMenu>
+    <ContextMenu x:Key="ChangeSt">
+        <MenuItem Header="Изменить раздельный пункт" 
+        Command="slf:Commands.CreateStation" 
+                  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu} }, Path=PlacementTarget}"
+                  CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"/>
+        <MenuItem Header="Соединить с раздельный пункт" 
+        Command="slf:Commands.ConnectStation" 
+                  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu} }, Path=PlacementTarget}"
+                  CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"/>
+        <MenuItem Header="Удалить раздельный пункт" 
+        Command="slf:Commands.DeleteStation" 
+                  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu} }, Path=PlacementTarget}"
+                  CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"/>
+       
+    </ContextMenu>
     <Style x:Key="ElliStyle" TargetType="Ellipse">
         <Setter Property="Fill" Value="Black"/>
         <Setter Property="ContextMenu" Value="{StaticResource CreateSt}"/>
@@ -14,8 +29,14 @@
     </Style>
 
     <Style x:Key="IconStyle" TargetType="slf:StationIconElement">
-        <Setter Property="Fill" Value="Red"/>
+        <Setter Property="Fill" Value="Aqua"/>
         <Setter Property="ContextMenu" Value="{StaticResource CreateSt}"/>
         <Setter Property="Opacity" Value="0.8"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Fill" Value="Blue"></Setter>
+                <Setter Property="Opacity" Value="1.0"></Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

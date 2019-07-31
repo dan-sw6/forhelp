@@ -25,7 +25,12 @@ namespace FinalRailEditor.SectionEditor.SeControl
             Ellipse arriver = (Ellipse)e.OriginalSource;
             double x = Canvas.GetLeft(arriver);
             double y = Canvas.GetTop(arriver);
-            ellipse.Center = new Point(x, y);
+            Point pos = new Point(x-Step/4+0.15, y-Step/4+0.15);
+            var str = YesList.Where(n => ((n.Left < pos.X) && (n.Right > pos.X) && (n.Top < pos.Y) && (n.Bottom > pos.Y)));
+            Thickness ness = str.FirstOrDefault();
+            ellipse.Center = new Point(ness.Left+Step/2, ness.Top+Step/2);
+            YesList.Remove(ness);
+            NoneList.Add(ness);
             iconElement.Icon = ellipse;
             iconElement.Style = (Style)Application.Current.FindResource("IconStyle");
             Canvas.Children.Add(iconElement);

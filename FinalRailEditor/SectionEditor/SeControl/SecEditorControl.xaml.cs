@@ -20,9 +20,7 @@ namespace FinalRailEditor.SectionEditor.SeControl
     /// </summary>
     public partial class SecEditorControl : UserControl
     {
-        const int Step = 20;
-        List<Thickness> list;
-        Ellipse ellipse;
+        
         public SecEditorControl()
         {
             InitializeComponent();
