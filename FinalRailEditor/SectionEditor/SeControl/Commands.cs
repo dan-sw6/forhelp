@@ -70,7 +70,21 @@ namespace FinalRailEditor.SectionEditor.SeControl
 
         private void Canvas_MoveLine(object sender, MouseEventArgs e)
         {
-            line.EndPoint = e.GetPosition(Canvas);
+            line.EndPoint =e.GetPosition(this);
+            var elem = Canvas.Children.OfType<StationIconElement>().Where(b => b.IsMouseOver);
+            if (elem.Count()!=0)
+            {
+                int b = 0;
+                if (e.LeftButton == MouseButtonState.Pressed)
+                {
+                    StationIconElement station = elem.First();
+                    EllipseGeometry ellipse = (EllipseGeometry)station.Icon;
+                    line.EndPoint = ellipse.Center;
+                    Canvas.MouseMove += Canvas_MouseMove;
+                    Canvas.MouseMove -= Canvas_MoveLine;
+                    path.Opacity = 1.0;
+                }
+            }
         }
     }
 
