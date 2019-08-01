@@ -25,8 +25,19 @@ namespace FinalRailEditor.SectionEditor.SeControl
         {
             InitializeComponent();
             Canvas.MouseMove += Canvas_MouseMove;
-            Canvas.SizeChanged += Canvas_SizeChanged;   
+            Canvas.SizeChanged += Canvas_SizeChanged;
+            this.ContextMenuOpening += SecEditorControl_ContextMenuOpening;
+            this.ContextMenuClosing += SecEditorControl_ContextMenuClosing;
         }
- 
+
+        private void SecEditorControl_ContextMenuClosing(object sender, ContextMenuEventArgs e)
+        {
+            ContextMenuClosed = true;
+        }
+
+        private void SecEditorControl_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            ContextMenuClosed = false;
+        }
     }
 }

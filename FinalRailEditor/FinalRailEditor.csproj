@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="SectionEditor\MainCircuit.cs" />
     <Compile Include="SectionEditor\MainStation.cs" />
+    <Compile Include="SectionEditor\SeControl\CircuitIconElement.cs" />
     <Compile Include="SectionEditor\SeControl\Commands.cs" />
     <Compile Include="SectionEditor\SeControl\SecEditorControl.xaml.cs">
       <DependentUpon>SecEditorControl.xaml</DependentUpon>

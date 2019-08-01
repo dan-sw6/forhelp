@@ -18,19 +18,20 @@ namespace FinalRailEditor.SectionEditor.SeControl
     public partial class SecEditorControl : UserControl
     {
         const int Step = 20;
-
+        bool ContextMenuClosed = true;
         /// <summary>
         /// Коллекция с ячейками, где может быть привязвка
         /// </summary>
         List<Thickness> YesList = new List<Thickness>();
         List<Thickness> NoneList = new List<Thickness>();
-        Ellipse ellipse;
+        Path path ;
+        EllipseGeometry ellipseGeometry;
+        
 
         private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             int row = (int)Canvas.ActualHeight / Step;
             int column = (int)Canvas.ActualWidth / Step;
-    
 
             for (int i = 0; i < column - 1; i++)
             {
@@ -44,22 +45,24 @@ namespace FinalRailEditor.SectionEditor.SeControl
                     YesList.Add(thickness);
                 }
             }
-            ellipse = new Ellipse();
-            ellipse.Width = 10;
-            ellipse.Height = 10;
-            ellipse.Style = (Style)Application.Current.FindResource("ElliStyle");
-            Canvas.Children.Add(ellipse);
+            path = new Path();
+            ellipseGeometry = new EllipseGeometry { RadiusX = 5, RadiusY=5 };
+            path.Data = ellipseGeometry;
+            path.Style = (Style)Application.Current.FindResource("PathStyle");
+            Canvas.Children.Add(path);
         }
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
-            Point pos = e.GetPosition(this);
-            var str = YesList.Where(n => ((n.Left < pos.X) && (n.Right > pos.X) && (n.Top < pos.Y) && (n.Bottom > pos.Y)));
-            Thickness ness = str.FirstOrDefault();
-            if (str.Count() != 0)
+            if (ContextMenuClosed)
             {
-                Canvas.SetLeft(ellipse, ness.Left + Step / 4 - 0.25);
-                Canvas.SetTop(ellipse, ness.Top + Step / 4 - 0.25);
+                Point pos = e.GetPosition(this);
+                var str = YesList.Where(n => ((n.Left < pos.X) && (n.Right > pos.X) && (n.Top < pos.Y) && (n.Bottom > pos.Y)));
+                Thickness ness = str.FirstOrDefault();
+                if (str.Count() != 0)
+                    ellipseGeometry.Center = new Point(ness.Left + Step / 2 - 0.25, ness.Top + Step / 2 - 0.25);
+                
             }
+            
         }
     }
 

@@ -10,6 +10,9 @@
         <CommandBinding Command="slf:Commands.DeleteStation" Executed="Cmd_DeleteStation"></CommandBinding>
         <CommandBinding Command="slf:Commands.ConnectStation" Executed="Cmd_ConnectStation"></CommandBinding>
     </UserControl.CommandBindings>
+    <UserControl.Resources>
+        <ResourceDictionary Source="ControlDictionary.xaml"></ResourceDictionary>
+    </UserControl.Resources>
     <Canvas x:Name="Canvas"  Margin="0" ClipToBounds="False"  >
             <Canvas.Background >
                 <DrawingBrush Viewport="0,0,20,20" ViewportUnits="Absolute" TileMode="Tile">
