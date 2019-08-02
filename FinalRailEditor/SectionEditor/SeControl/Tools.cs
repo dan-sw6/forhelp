@@ -24,6 +24,8 @@ namespace FinalRailEditor.SectionEditor.SeControl
         /// </summary>
         List<Thickness> YesList = new List<Thickness>();
         List<Thickness> NoneList = new List<Thickness>();
+        List<Thickness> NoneListCirc = new List<Thickness>();
+
         Path path ;
         EllipseGeometry ellipseGeometry;
         
@@ -56,10 +58,8 @@ namespace FinalRailEditor.SectionEditor.SeControl
             if (ContextMenuClosed)
             {
                 Point pos = e.GetPosition(this);
-                var str = YesList.Where(n => ((n.Left < pos.X) && (n.Right > pos.X) && (n.Top < pos.Y) && (n.Bottom > pos.Y)));
-                Thickness ness = str.FirstOrDefault();
-                if (str.Count() != 0)
-                    ellipseGeometry.Center = new Point(ness.Left + Step / 2 - 0.25, ness.Top + Step / 2 - 0.25);            
+                Thickness ness = GetThickness(pos, YesList);
+                ellipseGeometry.Center = new Point(ness.Left + Step / 2 - 0.25, ness.Top + Step / 2 - 0.25);            
             }        
         }
         private void Canvas_LeftButtonCircuit(object sender, MouseButtonEventArgs e)
@@ -74,9 +74,42 @@ namespace FinalRailEditor.SectionEditor.SeControl
                         StationIconElement station = (StationIconElement)selected.First();
                         EllipseGeometry ellipse = (EllipseGeometry)station.Icon;
                         line.EndPoint = ellipse.Center;
-                        var remov = YesList.Where(n=> n.Left)
-
-
+                        Thickness start = GetThickness(line.StartPoint, NoneList);
+                        Thickness end = GetThickness(line.EndPoint, NoneList);
+                        if (start.Left < end.Left)
+                        {
+                            if (start.Top<end.Top)
+                            {
+                                var vpl = YesList.Where(a => (a.Left >= start.Left) && (a.Left <= end.Left)
+                                                              && (a.Top >=start.Top)&&(a.Top<=end.Top));
+                                NoneListCirc.AddRange(vpl);
+                                YesList.RemoveAll(x => vpl.Contains(x));
+                            }
+                            else
+                            {
+                                var vpl = YesList.Where(a => (a.Left >= start.Left) && (a.Left <= end.Left)
+                                                             && (a.Top <= start.Top) && (a.Top >= end.Top));
+                                NoneListCirc.AddRange(vpl);
+                                YesList.RemoveAll(x => vpl.Contains(x));
+                            }
+                        }
+                        else
+                        {
+                            if (start.Top < end.Top)
+                            {
+                                var vpl = YesList.Where(a => (a.Left <= start.Left) && (a.Left >= end.Left)
+                                                             && (a.Top >= start.Top) && (a.Top <= end.Top));
+                                NoneListCirc.AddRange(vpl);
+                                YesList.RemoveAll(x => vpl.Contains(x));
+                            }
+                            else
+                            {
+                                var vpl = YesList.Where(a => (a.Left <= start.Left) && (a.Left >= end.Left)
+                                                            && (a.Top <= start.Top) && (a.Top >= end.Top));
+                                NoneListCirc.AddRange(vpl);
+                                YesList.RemoveAll(x => vpl.Contains(x));
+                            }
+                        }
                         Canvas.MouseMove += Canvas_MouseMove;
                         Canvas.MouseMove -= Canvas_MoveLine;
                         path.Opacity = 1.0;
@@ -99,6 +132,13 @@ namespace FinalRailEditor.SectionEditor.SeControl
         { 
             HitList.Add(result.VisualHit);
             return HitTestResultBehavior.Continue;
+        }
+        private Thickness GetThickness (Point pos, List<Thickness> list)
+        {
+            var str = list.Where(n => ((n.Left <= pos.X) && (n.Right >= pos.X) && (n.Top <= pos.Y) && (n.Bottom >= pos.Y)));
+            if (str.Count() == 0) path.Opacity = 0.0;
+            else path.Opacity = 1.0;
+                return str.FirstOrDefault();
         }
     }
 

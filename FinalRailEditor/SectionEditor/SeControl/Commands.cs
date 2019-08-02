@@ -42,8 +42,7 @@ namespace FinalRailEditor.SectionEditor.SeControl
             StationIconElement arriver = (StationIconElement)e.OriginalSource;
             EllipseGeometry geometry = (EllipseGeometry)arriver.Icon;
             Point pos = geometry.Center;
-            var str = NoneList.Where(n => ((n.Left < pos.X) && (n.Right > pos.X) && (n.Top < pos.Y) && (n.Bottom > pos.Y)));
-            Thickness ness = str.FirstOrDefault();
+            Thickness ness = GetThickness(pos, NoneList);
             YesList.Add(ness);
             NoneList.Remove(ness);
             Canvas.Children.Remove(arriver);
@@ -57,8 +56,7 @@ namespace FinalRailEditor.SectionEditor.SeControl
             StationIconElement arriver = (StationIconElement)e.OriginalSource;
             EllipseGeometry geometry = (EllipseGeometry)arriver.Icon;
             Point pos = geometry.Center;
-            var str = NoneList.Where(n => ((n.Left < pos.X) && (n.Right > pos.X) && (n.Top < pos.Y) && (n.Bottom > pos.Y)));
-            Thickness ness = str.FirstOrDefault();
+            Thickness ness = GetThickness(pos,NoneList);
             line.StartPoint = new Point(ness.Left + Step / 2 - 0.25, ness.Top + Step / 2 - 0.25);
             circuitIconElement.Style = (Style)Application.Current.FindResource("CircuitStyle");
              Canvas.Children.Add(circuitIconElement);
@@ -79,7 +77,46 @@ namespace FinalRailEditor.SectionEditor.SeControl
         }
         private void Cmd_DeleteCircuit(object sender, ExecutedRoutedEventArgs e)
         {
-
+            CircuitIconElement arriver = (CircuitIconElement)e.OriginalSource;
+            LineGeometry geometry = (LineGeometry)arriver.Icon;
+            Thickness start = GetThickness(geometry.StartPoint, NoneList);
+            Thickness end = GetThickness(geometry.EndPoint, NoneList);
+            if (start.Left < end.Left)
+            {
+                if (start.Top < end.Top)
+                {
+                    var vpl = NoneListCirc.Where(a => (a.Left >= start.Left) && (a.Left <= end.Left)
+                                                  && (a.Top >= start.Top) && (a.Top <= end.Top));
+                    YesList.AddRange(vpl);
+                    NoneListCirc.RemoveAll(x => vpl.Contains(x));
+                }
+                else
+                {
+                    var vpl = NoneListCirc.Where(a => (a.Left >= start.Left) && (a.Left <= end.Left)
+                                                 && (a.Top <= start.Top) && (a.Top >= end.Top));
+                    YesList.AddRange(vpl);
+                    NoneListCirc.RemoveAll(x => vpl.Contains(x));
+                }
+            }
+            else
+            {
+                if (start.Top < end.Top)
+                {
+                    var vpl = NoneListCirc.Where(a => (a.Left <= start.Left) && (a.Left >= end.Left)
+                                                 && (a.Top >= start.Top) && (a.Top <= end.Top));
+                    YesList.AddRange(vpl);
+                    NoneListCirc.RemoveAll(x => vpl.Contains(x));
+                }
+                else
+                {
+                    var vpl = NoneListCirc.Where(a => (a.Left <= start.Left) && (a.Left >= end.Left)
+                                                && (a.Top <= start.Top) && (a.Top >= end.Top));
+                    YesList.AddRange(vpl);
+                    NoneListCirc.RemoveAll(x => vpl.Contains(x));
+                }
+            }
+            Canvas.Children.Remove(arriver);
+            ContextMenuClosed = true;
         }
 
     }
