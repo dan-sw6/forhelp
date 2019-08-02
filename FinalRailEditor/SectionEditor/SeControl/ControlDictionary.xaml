@@ -22,6 +22,18 @@
                   CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"/>
 
     </ContextMenu>
+    <ContextMenu x:Key="ChangeCircuit">
+        <MenuItem Header="Изменить перегон" 
+        Command="slf:Commands.OpenCircuit" 
+                  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu} }, Path=PlacementTarget}"
+                  CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"/>
+        <MenuItem Header="Удалить раздельный пункт" 
+        Command="slf:Commands.DeleteCircuit" 
+                  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu} }, Path=PlacementTarget}"
+                  CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"/>
+
+    </ContextMenu>
+
     <Style x:Key="PathStyle" TargetType="Path">
         <Setter Property="Fill" Value="Black"/>
         <Setter Property="ContextMenu" Value="{StaticResource CreateSt}"/>
@@ -41,13 +53,13 @@
     </Style>
     <Style x:Key="CircuitStyle" TargetType="slf:CircuitIconElement">
         <Setter Property="Fill" Value="Black"/>
-        <Setter Property="ContextMenu" Value="{StaticResource ChangeSt}"/>
+        <Setter Property="ContextMenu" Value="{StaticResource ChangeCircuit}"/>
         <Setter Property="StrokeThickness" Value="2.0"/>
         <Setter Property="Stroke" Value="Black"/>
         <Setter Property="Opacity" Value="0.8"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Fill" Value="Blue"></Setter>
+                <Setter Property="Stroke" Value="Green"></Setter>
                 <Setter Property="Opacity" Value="1.0"></Setter>
             </Trigger>
         </Style.Triggers>

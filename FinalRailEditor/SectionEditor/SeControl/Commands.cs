@@ -10,7 +10,7 @@ using System.Windows.Shapes;
 using System.Windows.Data;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
+using System.Collections.ObjectModel;
 
 namespace FinalRailEditor.SectionEditor.SeControl
 {
@@ -61,31 +61,27 @@ namespace FinalRailEditor.SectionEditor.SeControl
             Thickness ness = str.FirstOrDefault();
             line.StartPoint = new Point(ness.Left + Step / 2 - 0.25, ness.Top + Step / 2 - 0.25);
             circuitIconElement.Style = (Style)Application.Current.FindResource("CircuitStyle");
-            Canvas.Children.Add(circuitIconElement);
+             Canvas.Children.Add(circuitIconElement);
             Canvas.SetZIndex(circuitIconElement, 1);
             Canvas.MouseMove -= Canvas_MouseMove;
             Canvas.MouseMove += Canvas_MoveLine;
+            Canvas.MouseLeftButtonDown += Canvas_LeftButtonCircuit;
             path.Opacity = 0.0;
         }
-
-        private void Canvas_MoveLine(object sender, MouseEventArgs e)
+        private void Cmd_OpenStation(object sender, ExecutedRoutedEventArgs e)
         {
-            line.EndPoint =e.GetPosition(this);
-            var elem = Canvas.Children.OfType<StationIconElement>().Where(b => b.IsMouseOver);
-            if (elem.Count()!=0)
-            {
-                int b = 0;
-                if (e.LeftButton == MouseButtonState.Pressed)
-                {
-                    StationIconElement station = elem.First();
-                    EllipseGeometry ellipse = (EllipseGeometry)station.Icon;
-                    line.EndPoint = ellipse.Center;
-                    Canvas.MouseMove += Canvas_MouseMove;
-                    Canvas.MouseMove -= Canvas_MoveLine;
-                    path.Opacity = 1.0;
-                }
-            }
+
         }
+
+        private void Cmd_OpenCircuit(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+        private void Cmd_DeleteCircuit(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
     }
 
 
@@ -95,8 +91,8 @@ namespace FinalRailEditor.SectionEditor.SeControl
         public static RoutedCommand CreateStation { get; set; }
         public static RoutedCommand DeleteStation { get; set; }
         public static RoutedCommand ConnectStation { get; set; }
-        public static RoutedCommand OpenSchemeSection { get; set; }
-        public static RoutedCommand DeleteSchemeSection { get; set; }
+        public static RoutedCommand OpenCircuit { get; set; }
+        public static RoutedCommand DeleteCircuit { get; set; }
 
         static Commands()
         {
@@ -104,8 +100,8 @@ namespace FinalRailEditor.SectionEditor.SeControl
             Commands.CreateStation = new RoutedCommand("CreateStation", typeof(Commands));
             Commands.DeleteStation = new RoutedCommand("DeleteStation", typeof(Commands));
             Commands.ConnectStation = new RoutedCommand("ConnectStation", typeof(Commands));
-            Commands.OpenSchemeSection = new RoutedCommand("OpenSchemeSection", typeof(Commands));
-            Commands.DeleteSchemeSection = new RoutedCommand("DeleteSchemeSection", typeof(Commands));
+            Commands.OpenCircuit = new RoutedCommand("OpenCircuit", typeof(Commands));
+            Commands.DeleteCircuit = new RoutedCommand("DeleteCircuit", typeof(Commands));
         }
     }
 }

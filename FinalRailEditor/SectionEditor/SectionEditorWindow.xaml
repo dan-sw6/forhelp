@@ -35,7 +35,7 @@
 
 
         <StackPanel Grid.Row="1" Margin="5" Orientation="Horizontal">
-
+            <TextBlock Text="{Binding  Dependencies.Count}"></TextBlock>
         </StackPanel>
         <Canvas x:Name="workspace" Grid.Row="2"  ClipToBounds="True">
             <Canvas.Background>
@@ -44,7 +44,7 @@
             <Border x:Name="controlBorder" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Center"
                     Height="400" Margin="2"
                     VerticalAlignment="Center" Width="800"  Padding="0"  Background="WhiteSmoke">
-                <contr:SecEditorControl></contr:SecEditorControl>
+                <contr:SecEditorControl HitList="{Binding Dependencies}"></contr:SecEditorControl>
             </Border>
         </Canvas>
     </Grid>

@@ -9,6 +9,9 @@
         <CommandBinding Command="slf:Commands.CreateStation" Executed="Cmd_CreateStation"></CommandBinding>
         <CommandBinding Command="slf:Commands.DeleteStation" Executed="Cmd_DeleteStation"></CommandBinding>
         <CommandBinding Command="slf:Commands.ConnectStation" Executed="Cmd_ConnectStation"></CommandBinding>
+        <CommandBinding Command="slf:Commands.OpenCircuit" Executed="Cmd_OpenCircuit"/>
+        <CommandBinding Command="slf:Commands.DeleteCircuit" Executed="Cmd_DeleteCircuit"/>
+        <CommandBinding Command="slf:Commands.OpenStation" Executed="Cmd_DeleteStation"/>
     </UserControl.CommandBindings>
     <UserControl.Resources>
         <ResourceDictionary Source="ControlDictionary.xaml"></ResourceDictionary>

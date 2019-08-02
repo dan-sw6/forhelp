@@ -59,10 +59,46 @@ namespace FinalRailEditor.SectionEditor.SeControl
                 var str = YesList.Where(n => ((n.Left < pos.X) && (n.Right > pos.X) && (n.Top < pos.Y) && (n.Bottom > pos.Y)));
                 Thickness ness = str.FirstOrDefault();
                 if (str.Count() != 0)
-                    ellipseGeometry.Center = new Point(ness.Left + Step / 2 - 0.25, ness.Top + Step / 2 - 0.25);
-                
+                    ellipseGeometry.Center = new Point(ness.Left + Step / 2 - 0.25, ness.Top + Step / 2 - 0.25);            
+            }        
+        }
+        private void Canvas_LeftButtonCircuit(object sender, MouseButtonEventArgs e)
+        {
+            if (HitList.Count > 0)
+            {
+                var selected = HitList.Where(b => b is StationIconElement);
+                if (selected.Count() > 0)
+                {
+                    if (e.ChangedButton == MouseButton.Left)
+                    {
+                        StationIconElement station = (StationIconElement)selected.First();
+                        EllipseGeometry ellipse = (EllipseGeometry)station.Icon;
+                        line.EndPoint = ellipse.Center;
+                        var remov = YesList.Where(n=> n.Left)
+
+
+                        Canvas.MouseMove += Canvas_MouseMove;
+                        Canvas.MouseMove -= Canvas_MoveLine;
+                        path.Opacity = 1.0;
+                        Canvas.MouseLeftButtonDown -= Canvas_LeftButtonCircuit;
+                    }
+                }
             }
-            
+        }
+
+        private void Canvas_MoveLine(object sender, MouseEventArgs e)
+        {
+            line.EndPoint = e.GetPosition(Canvas);
+            HitList.Clear();
+            VisualTreeHelper.HitTest(Canvas, null,
+                 new HitTestResultCallback(MyHitTestResult),
+                 new PointHitTestParameters(e.GetPosition(Canvas)));
+        }
+
+        private HitTestResultBehavior MyHitTestResult(HitTestResult result)
+        { 
+            HitList.Add(result.VisualHit);
+            return HitTestResultBehavior.Continue;
         }
     }
 

@@ -9,7 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Collections.ObjectModel;
 using System.Windows.Shapes;
 
 namespace FinalRailEditor.SectionEditor
@@ -22,6 +22,9 @@ namespace FinalRailEditor.SectionEditor
         public SectionEditorWindow()
         {
             InitializeComponent();
+            Dependencies = new ObservableCollection<DependencyObject>();
+            
+            DataContext = this;
             controlBorder.LayoutTransform = st;
             controlBorder.MouseDown += new MouseButtonEventHandler(this.Border_MouseCenterButtonDown);
             controlBorder.MouseUp += new MouseButtonEventHandler(this.Border_MouseCenterButtonUp);
@@ -29,9 +32,7 @@ namespace FinalRailEditor.SectionEditor
             controlBorder.MouseMove += new MouseEventHandler(this.Border_MouseMove);
         }
 
-        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
+        public ObservableCollection<DependencyObject> Dependencies
+        { get; set; }
     }
 }
