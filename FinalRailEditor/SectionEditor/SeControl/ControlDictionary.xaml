@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:slf="clr-namespace:FinalRailEditor.SectionEditor.SeControl">
+                    xmlns:slf="clr-namespace:FinalRailEditor.SectionEditor.SeControl"
+                     xmlns:ie = "http://schemas.microsoft.com/xaml/behaviors">
     <ContextMenu x:Key="CreateSt">
         <MenuItem Name="rwComm" Header="Создать раздельный пункт" 
         Command="slf:Commands.CreateStation" 

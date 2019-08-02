@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:slf="clr-namespace:FinalRailEditor.SectionEditor.SeControl"
+             xmlns:ie = "http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" >
     <UserControl.CommandBindings>
         <CommandBinding Command="slf:Commands.CreateStation" Executed="Cmd_CreateStation"></CommandBinding>
@@ -17,7 +18,7 @@
         <ResourceDictionary Source="ControlDictionary.xaml"></ResourceDictionary>
     </UserControl.Resources>
     <Canvas x:Name="Canvas"  Margin="0" ClipToBounds="False"  >
-            <Canvas.Background >
+        <Canvas.Background >
                 <DrawingBrush Viewport="0,0,20,20" ViewportUnits="Absolute" TileMode="Tile">
                     <DrawingBrush.Drawing>
                         <GeometryDrawing Brush="DarkSlateGray">

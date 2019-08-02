@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Win32;
+using Microsoft.Xaml.Behaviors;
 using System.Windows.Shapes;
 using System.Windows.Data;
 using System.Windows;
@@ -33,6 +33,8 @@ namespace FinalRailEditor.SectionEditor.SeControl
             NoneList.Add(ness);
             iconElement.Icon = ellipse;
             iconElement.Style = (Style)Application.Current.FindResource("IconStyle");
+            DragInCanvasBehavior dragInCanvas = new DragInCanvasBehavior();
+            Interaction.GetBehaviors(iconElement).Add(dragInCanvas);
             Canvas.Children.Add(iconElement);
             Canvas.SetZIndex(iconElement, 2);
 
