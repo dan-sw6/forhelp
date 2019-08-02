@@ -151,8 +151,7 @@ namespace FinalRailEditor.SectionEditor.SeControl
             {
                 style.TargetType = typeof(Ellipse);
                 style.Setters.Add(new Setter(Shape.FillProperty, Brushes.Black));
-                style.Setters.Add(new Setter(Shape.OpacityProperty, 0.8));
-               
+                style.Setters.Add(new Setter(Shape.OpacityProperty, 0.8));     
             }
             return style;
         }

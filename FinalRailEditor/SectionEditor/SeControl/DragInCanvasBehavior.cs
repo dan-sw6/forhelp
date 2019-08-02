@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Collections.Generic;
 using Microsoft.Xaml.Behaviors;
 
 namespace FinalRailEditor.SectionEditor.SeControl
@@ -57,7 +58,6 @@ namespace FinalRailEditor.SectionEditor.SeControl
             {
                 // Получение позиции элемента относительно Canvas
                 Point point = e.GetPosition(canvas);
-
                 // Move the element.
                 AssociatedObject.SetValue(Canvas.TopProperty, point.Y - mouseOffset.Y);
                 AssociatedObject.SetValue(Canvas.LeftProperty, point.X - mouseOffset.X);

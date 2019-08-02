@@ -29,7 +29,14 @@ namespace FinalRailEditor.SectionEditor.SeControl
             Canvas.SizeChanged += Canvas_SizeChanged;
             this.ContextMenuOpening += SecEditorControl_ContextMenuOpening;
             this.ContextMenuClosing += SecEditorControl_ContextMenuClosing;
+            Canvas.LayoutUpdated += Canvas_LayoutUpdated;
         }
+
+        private void Canvas_LayoutUpdated(object sender, EventArgs e)
+        {
+            
+        }
+
         public static readonly DependencyProperty HitListProperty;
 
         static SecEditorControl()

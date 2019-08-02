@@ -33,8 +33,8 @@ namespace FinalRailEditor.SectionEditor.SeControl
             NoneList.Add(ness);
             iconElement.Icon = ellipse;
             iconElement.Style = (Style)Application.Current.FindResource("IconStyle");
-            DragInCanvasBehavior dragInCanvas = new DragInCanvasBehavior();
-            Interaction.GetBehaviors(iconElement).Add(dragInCanvas);
+            //DragInCanvasBehavior dragInCanvas = new DragInCanvasBehavior();
+            //Interaction.GetBehaviors(iconElement).Add(dragInCanvas);
             Canvas.Children.Add(iconElement);
             Canvas.SetZIndex(iconElement, 2);
 
@@ -120,10 +120,7 @@ namespace FinalRailEditor.SectionEditor.SeControl
             Canvas.Children.Remove(arriver);
             ContextMenuClosed = true;
         }
-
     }
-
-
     public class Commands
     {
         public static RoutedCommand OpenStation { get; set; }
